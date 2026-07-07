@@ -91,13 +91,47 @@
     font-size:clamp(3rem, 9vw, 7rem);
     font-weight:900;
     color:var(--coral-deep);
-    line-height:0.98;
+    line-height:1.05;
     letter-spacing:-2px;
   }
-  .hero-headline .big .line{
+  .draw-line{
+    display:flex;
+    justify-content:center;
+    padding:6px 0;
+  }
+  .line-wrap{
+    position:relative;
     display:inline-block;
-    opacity:0;
-    animation:popIn .8s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  .line-wrap .line-text{
+    display:inline-block;
+    filter:url(#rough-marker);
+    clip-path:inset(0 100% 0 0);
+    animation:wipeReveal 1.15s cubic-bezier(.65,0,.35,1) forwards;
+  }
+  @keyframes wipeReveal{
+    from{clip-path:inset(0 100% 0 0);}
+    to{clip-path:inset(0 0% 0 0);}
+  }
+  .draw-tip{
+    position:absolute;
+    top:50%;
+    left:0;
+    width:26px;height:26px;
+    margin-top:-13px;margin-left:-13px;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--coral-deep) 0%, rgba(189,124,101,0.5) 55%, transparent 75%);
+    animation:tipMove 1.15s cubic-bezier(.65,0,.35,1) forwards, tipWobble .22s ease-in-out infinite alternate;
+    opacity:0.9;
+  }
+  @keyframes tipMove{
+    0%{left:0%;opacity:1;}
+    85%{opacity:1;}
+    100%{left:100%;opacity:0;}
+  }
+  @keyframes tipWobble{
+    from{margin-top:-19px;}
+    to{margin-top:-7px;}
   }
   .hero-headline .tiny-stack{
     margin-top:22px;
@@ -109,7 +143,7 @@
     animation:fadeUp .6s ease forwards;
   }
   .hero-inner .reveal{animation:fadeUp .7s ease forwards;}
-  .photo-reveal{opacity:0;animation:slideInRight .8s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:.9s;}
+  .photo-reveal{opacity:0;animation:slideInRight .8s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:2.9s;}
   .hero-inner{
     display:flex;align-items:center;gap:70px;margin-top:20px;
   }
@@ -243,6 +277,13 @@
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute">
+  <filter id="rough-marker" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="4" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
 <header>
   <nav>
     <div class="brand">Fena Cantika Putri</div>
@@ -260,25 +301,35 @@
 <section class="hero grid-bg">
   <div class="hero-headline">
     <div class="big">
-      <span class="line" style="animation-delay:.05s">welcome to</span><br>
-      <span class="line" style="animation-delay:.35s">my portfolio</span>
+      <div class="draw-line">
+        <span class="line-wrap">
+          <span class="line-text" style="animation-delay:.1s">welcome to</span>
+          <span class="draw-tip" style="animation-delay:.1s"></span>
+        </span>
+      </div>
+      <div class="draw-line">
+        <span class="line-wrap">
+          <span class="line-text" style="animation-delay:1.25s">my portfolio</span>
+          <span class="draw-tip" style="animation-delay:1.25s"></span>
+        </span>
+      </div>
     </div>
     <div class="tiny-stack">
-      <span class="stack-line" style="animation-delay:.7s">Fena Cantika Putri</span>
-      <span class="stack-line" style="animation-delay:.85s">Content Creator &amp; Social Media Specialist</span>
+      <span class="stack-line" style="animation-delay:2.7s">Fena Cantika Putri</span>
+      <span class="stack-line" style="animation-delay:2.85s">Content Creator &amp; Social Media Specialist</span>
     </div>
   </div>
   <div class="wrap hero-inner">
     <div class="hero-text">
-      <span class="eyebrow reveal" style="animation-delay:1s">Available for work</span>
-      <h1 class="reveal" style="animation-delay:1.1s">Fena Cantika Putri S.</h1>
-      <div class="role reveal" style="animation-delay:1.2s">Content Creator &amp; Social Media Specialist</div>
-      <p class="desc reveal" style="animation-delay:1.3s">Content creator and social media specialist with a background in architecture, and a passion for design, brand storytelling, and media. Experienced in campaign design, content production, and large-scale CSR events with external stakeholders.</p>
-      <div class="hero-meta reveal" style="animation-delay:1.4s">
+      <span class="eyebrow reveal" style="animation-delay:3s">Available for work</span>
+      <h1 class="reveal" style="animation-delay:3.1s">Fena Cantika Putri S.</h1>
+      <div class="role reveal" style="animation-delay:3.2s">Content Creator &amp; Social Media Specialist</div>
+      <p class="desc reveal" style="animation-delay:3.3s">Content creator and social media specialist with a background in architecture, and a passion for design, brand storytelling, and media. Experienced in campaign design, content production, and large-scale CSR events with external stakeholders.</p>
+      <div class="hero-meta reveal" style="animation-delay:3.4s">
         <div>Based in Tangerang — open to work in Jakarta</div>
         <div>Born 3 February 1997</div>
       </div>
-      <div class="hero-btns reveal" style="animation-delay:1.5s">
+      <div class="hero-btns reveal" style="animation-delay:3.5s">
         <a href="#contact" class="btn">Get in Touch</a>
         <a href="#work" class="btn-text">View Design Work</a>
       </div>
